@@ -32,7 +32,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-4 sm:mb-6">
               The ultimate gaming platform connecting millions of gamers worldwide.
               <br />
-              A product of THE IK.PRO TECH HUB
+              A product of <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent font-semibold">THE IK.PRO TECH HUB.</span> Contact them for more INFO.
             </p>
             
             {/* Newsletter */}
