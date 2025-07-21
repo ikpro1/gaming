@@ -31,6 +31,8 @@ const Footer = () => {
             </div>
             <p className="text-gray-400 text-sm mb-4 sm:mb-6">
               The ultimate gaming platform connecting millions of gamers worldwide.
+              <br />
+              A product of THE IK.PRO TECH HUB
             </p>
             
             {/* Newsletter */}
