@@ -19,6 +19,16 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-4 xl:space-x-8">
             <a href="#" className="text-sm xl:text-base text-white hover:text-green-400 transition-colors duration-200">Games</a>
+            <a 
+              href="#games-library" 
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('games-library')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="text-sm xl:text-base text-white hover:text-green-400 transition-colors duration-200"
+            >
+              Library
+            </a>
             <a href="#" className="text-sm xl:text-base text-white hover:text-green-400 transition-colors duration-200">Esports</a>
             <a href="#" className="text-sm xl:text-base text-white hover:text-green-400 transition-colors duration-200">News</a>
             <a href="#" className="text-sm xl:text-base text-white hover:text-green-400 transition-colors duration-200">Community</a>
@@ -52,6 +62,17 @@ const Header = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="py-3 space-y-1">
                 <a href="#" className="block px-3 py-2 text-white hover:text-green-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200">Games</a>
+                <a 
+                  href="#games-library"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('games-library')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="block px-3 py-2 text-white hover:text-green-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200"
+                >
+                  Library
+                </a>
                 <a href="#" className="block px-3 py-2 text-white hover:text-green-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200">Esports</a>
                 <a href="#" className="block px-3 py-2 text-white hover:text-green-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200">News</a>
                 <a href="#" className="block px-3 py-2 text-white hover:text-green-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200">Community</a>

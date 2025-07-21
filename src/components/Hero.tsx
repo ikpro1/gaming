@@ -39,7 +39,10 @@ const Hero = () => {
               </div>
             </button>
 
-            <button className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-gray-600 text-white font-semibold rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25">
+            <button 
+              onClick={() => document.getElementById('games-library')?.scrollIntoView({ behavior: 'smooth' })}
+              className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-gray-600 text-white font-semibold rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25"
+            >
               <div className="flex items-center justify-center space-x-2">
                 <Star className="h-5 w-5" />
                 <span>Featured Games</span>
