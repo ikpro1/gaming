@@ -33,58 +33,59 @@ const News = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Latest News
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4 sm:px-0">
             Stay updated with the latest gaming news, reviews, and industry insights
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {articles.map((article) => (
             <article
               key={article.id}
-              className="group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10"
+              className="group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-blue-400/50 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10"
             >
               <div className="relative overflow-hidden">
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                 />
-                <div className="absolute top-4 right-4 px-3 py-1 bg-blue-600/90 text-white text-xs font-semibold rounded-full">
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 bg-blue-600/90 text-white text-xs font-semibold rounded-full">
                   {article.category}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-blue-400 transition-colors duration-300">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 line-clamp-2 group-hover:text-blue-400 transition-colors duration-300">
                   {article.title}
                 </h3>
                 
-                <p className="text-gray-400 mb-4 line-clamp-3">
+                <p className="text-sm sm:text-base text-gray-400 mb-3 sm:mb-4 line-clamp-3">
                   {article.excerpt}
                 </p>
 
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
                   <div className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
                     <span>{article.author}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Calendar className="h-4 w-4" />
-                    <span>{new Date(article.date).toLocaleDateString()}</span>
+                    <span className="hidden sm:inline">{new Date(article.date).toLocaleDateString()}</span>
+                    <span className="sm:hidden">{new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                   </div>
                 </div>
 
-                <button className="group/btn w-full flex items-center justify-center space-x-2 py-3 bg-transparent border border-gray-600 text-white rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25">
+                <button className="group/btn w-full flex items-center justify-center space-x-2 py-2.5 sm:py-3 bg-transparent border border-gray-600 text-white text-sm sm:text-base rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25">
                   <span>Read More</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </button>

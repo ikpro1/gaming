@@ -60,27 +60,27 @@ const FeaturedGames = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-black to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
             <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
               Featured Games
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4 sm:px-0">
             Discover the hottest games trending in our community
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {games.map((game) => (
             <div
               key={game.id}
-              className="group relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-green-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/10"
+              className="group relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-green-400/50 transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105 hover:shadow-2xl hover:shadow-green-500/10"
             >
               {game.featured && (
-                <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold rounded-full">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 px-2 py-1 sm:px-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold rounded-full">
                   Featured
                 </div>
               )}
@@ -89,32 +89,32 @@ const FeaturedGames = () => {
                 <img
                   src={game.image}
                   alt={game.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-1">{game.title}</h3>
-                    <p className="text-green-400 text-sm font-medium">{game.genre}</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1">{game.title}</h3>
+                    <p className="text-green-400 text-xs sm:text-sm font-medium">{game.genre}</p>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                    <span className="text-white text-sm font-semibold">{game.rating}</span>
+                    <span className="text-white text-xs sm:text-sm font-semibold">{game.rating}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-1 text-gray-400">
                     <Users className="h-4 w-4" />
-                    <span className="text-sm">{game.players} players</span>
+                    <span className="text-xs sm:text-sm">{game.players} players</span>
                   </div>
                   <Zap className="h-4 w-4 text-blue-400" />
                 </div>
 
-                <button className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 hover:shadow-lg hover:shadow-green-500/25">
+                <button className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm sm:text-base font-semibold rounded-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 hover:shadow-lg hover:shadow-green-500/25">
                   Play Now
                 </button>
               </div>
