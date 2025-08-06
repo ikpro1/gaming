@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { Download, Play, Star, Clock, Users, Filter, Search, Grid, List } from 'lucide-react';
+import { Download, Play, Star, Clock, Users, Filter, Search, Grid, List, Heart, Share2, Eye } from 'lucide-react';
 
 const GamesLibrary = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [hoveredGame, setHoveredGame] = useState<number | null>(null);
+  const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const gamesPerPage = 20;
 
   const categories = ['All', 'Action', 'Adventure', 'RPG', 'Strategy', 'Racing', 'Puzzle', 'Indie', 'Sports', 'Simulation', 'Horror', 'Platformer', 'Fighting', 'Shooter', 'MMORPG', 'Casual'];
@@ -134,6 +136,18 @@ const GamesLibrary = () => {
     alert(`Launching ${gameTitle}...`);
   };
 
+  const toggleFavorite = (gameId: number) => {
+    setFavorites(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(gameId)) {
+        newFavorites.delete(gameId);
+      } else {
+        newFavorites.add(gameId);
+      }
+      return newFavorites;
+    });
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     document.getElementById('games-library')?.scrollIntoView({ behavior: 'smooth' });
@@ -212,12 +226,14 @@ const GamesLibrary = () => {
 
         {/* Games Grid/List */}
         <div className={viewMode === 'grid' 
-          ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-8" 
+          ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 mb-8" 
           : "space-y-4 mb-8"
         }>
           {currentGames.map((game) => (
             <div
               key={game.id}
+              onMouseEnter={() => setHoveredGame(game.id)}
+              onMouseLeave={() => setHoveredGame(null)}
               className={`group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-green-400/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-green-500/10 ${
                 viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
               }`}
@@ -237,15 +253,48 @@ const GamesLibrary = () => {
                   }`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                
+                {/* Hover Overlay */}
+                {hoveredGame === game.id && (
+                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center space-x-3 animate-in fade-in-0 duration-200">
+                    <button
+                      onClick={() => handlePlayNow(game.title)}
+                      className="p-3 bg-green-500 text-white rounded-full hover:bg-green-400 transition-all duration-200 transform hover:scale-110"
+                    >
+                      <Play className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => toggleFavorite(game.id)}
+                      className={`p-3 rounded-full transition-all duration-200 transform hover:scale-110 ${
+                        favorites.has(game.id) 
+                          ? 'bg-red-500 text-white' 
+                          : 'bg-gray-700 text-gray-300 hover:bg-red-500 hover:text-white'
+                      }`}
+                    >
+                      <Heart className={`h-5 w-5 ${favorites.has(game.id) ? 'fill-current' : ''}`} />
+                    </button>
+                    <button className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-400 transition-all duration-200 transform hover:scale-110">
+                      <Share2 className="h-5 w-5" />
+                    </button>
+                  </div>
+                )}
+                
+                {/* Game Stats Overlay */}
+                <div className="absolute top-3 right-3 flex flex-col space-y-2">
+                  <div className="flex items-center space-x-1 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1">
+                    <Eye className="h-3 w-3 text-gray-300" />
+                    <span className="text-xs text-gray-300">{Math.floor(Math.random() * 1000)}K</span>
+                  </div>
+                </div>
               </div>
 
               <div className="p-4 sm:p-6 flex-1">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1 line-clamp-2">{game.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1 line-clamp-2 group-hover:text-green-400 transition-colors duration-300">{game.title}</h3>
                     <p className="text-green-400 text-xs sm:text-sm font-medium">{game.category}</p>
                   </div>
-                  <div className="flex items-center space-x-1">
+                  <div className="flex items-center space-x-1 flex-shrink-0">
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
                     <span className="text-white text-xs sm:text-sm font-semibold">{game.rating}</span>
                   </div>
@@ -290,14 +339,14 @@ const GamesLibrary = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleDownload(game.title)}
-                    className="flex-1 flex items-center justify-center space-x-2 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 hover:shadow-lg hover:shadow-green-500/25"
+                    className="flex-1 flex items-center justify-center space-x-2 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 hover:shadow-lg hover:shadow-green-500/25 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
                   </button>
                   <button
                     onClick={() => handlePlayNow(game.title)}
-                    className="flex-1 flex items-center justify-center space-x-2 py-2.5 bg-transparent border border-gray-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25"
+                    className="flex-1 flex items-center justify-center space-x-2 py-2.5 bg-transparent border border-gray-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-400/25 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <Play className="h-4 w-4" />
                     <span>Play Now</span>
